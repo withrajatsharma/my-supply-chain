@@ -1,4 +1,7 @@
 "use client";
+
+import { Command } from 'commander';
+
 import React, { useEffect, useState } from "react";
 import { registerParcel } from "../api/index";
 import { Button } from "./ui/button";
@@ -16,6 +19,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+// @ts-ignore
 import web3 from "../../services/web3";
 import supplyChain from "../../services/supplyChain"
 
@@ -34,6 +38,7 @@ const RegisterParcel = () => {
 
   const [inputValue, setInputValue] = useState("");
 
+  // @ts-ignore
   const handleKeydown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -43,13 +48,15 @@ const RegisterParcel = () => {
 
   const addNewLocation = () => {
     if (inputValue.trim() !== "") {
+      // @ts-ignore
       setLocations([...locations, inputValue.trim()]);
       setInputValue("");
     }
   };
-
+// @ts-ignore
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // @ts-ignore
     const accounts = await web3.eth.getAccounts();
     await supplyChain.methods.registerParcel(
      name,
@@ -70,7 +77,6 @@ const RegisterParcel = () => {
       numCheckpoints,
       locations,
     };
-    // const data = { name, description, location, service, numCheckpoints, locations: locations.split(',') };
     try {
       const response = await registerParcel(data);
       console.log("Parcel registered:", response);
@@ -83,7 +89,7 @@ const RegisterParcel = () => {
 
   return (
    
-    <Card className=" ">
+    <Card className="  w-[50vw] flex justify-center items-center ">
       <form >
         <CardHeader>
           <CardTitle>Register Parcel</CardTitle>
@@ -91,9 +97,9 @@ const RegisterParcel = () => {
             Register your new parcel in one-click.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className=" ">
-            <div>
+        <CardContent className='' >
+          <div className=" flex justify-center gap-20 ">
+            <div className='w-[20vw] flex flex-col gap-4'>
               <div className="flex flex-col space-y-1.5 ">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -125,7 +131,7 @@ const RegisterParcel = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className=' w-[20vw] flex flex-col gap-4'>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="service">Service</Label>
                 <Input
@@ -143,24 +149,14 @@ const RegisterParcel = () => {
                   id="cp"
                   placeholder="checkpoints"
                   value={numCheckpoints}
+                  // @ts-ignore
                   onChange={(e) => setNumCheckpoints(e.target.value)}
                 />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="locations">all location</Label>
 
-                {locations && (
-                  <div className="flex items-center gap-2 flex-wrap mt-2">
-                    {locations.map((location, index) => (
-                      <span
-                        key={index}
-                        className=" flex items-center text-sm text-slate-900 bg-slate-100 py-1 rounded"
-                      >
-                        {location}--
-                      </span>
-                    ))}
-                  </div>
-                )}
+               
 
                 <Input
                   type="text"
@@ -170,6 +166,20 @@ const RegisterParcel = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeydown}
                 />
+
+{locations && (
+                  <div className="flex  justify-center gap-0 flex-wrap ">
+                    {locations.map((location, index) => (
+                      <span
+                        key={index}
+                        className="  text-sm text-slate-900 bg-slate-100 py-1 mt-4  rounded"
+                      >
+                        {location}--
+                      </span>
+                    ))}
+                  </div>
+                )}
+
               </div>
 
               <div></div>
@@ -183,6 +193,12 @@ const RegisterParcel = () => {
         </CardFooter>
       </form>
     </Card>
+
+    // <div className="bg-red-400 text-3xl">
+      
+    // </div>
+
+
   );
 };
 

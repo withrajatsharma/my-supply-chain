@@ -1,57 +1,41 @@
 "use client";
 import Image from "next/image";
-import RegisterParcel from "../components/RegisterParcel"
+import RegisterParcel from "../components/RegisterParcel";
 import { useEffect, useState } from "react";
-import supplyChain from "../../services/supplyChain"
+import supplyChain from "../../services/supplyChain";
 import { getParcelCount } from "../api/index";
 
-
-
 export default function Home() {
-
-
   const [parcelCount, setParcelCount] = useState(0);
 
   useEffect(() => {
+    const getCount = async () => {
+      // try {
+      //   const response = await getParcelCount();
+      //   setParcelCount(response.count);
+      // } catch (error) {
+      //   console.error("Error while getting parcel count:", error);
+      // }
 
-    const getCount = async() =>{
+     const count =  await supplyChain.methods.getParcelCount().call();
 
-      try {
-        const response = await getParcelCount();
-        setParcelCount(response.count)
-      } catch (error) {
-        console.error("Error while getting parcel count:", error);
-      }
+    await setParcelCount(count);
+
 
     };
 
     getCount();
-   
-   
-  
-
-   
-
-
-
   }, []);
 
-  
-
- 
-
-
-
-
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen  flex-col items-center justify-between p-24">
       <div>
-        
-        <h1 className="text-xl font-bold mb-10">Total Parcels: {parcelCount} </h1>
+        <h1 className="text-xl font-bold mb-10">
+          Total Parcels: {parcelCount}{" "}
+        </h1>
 
-            <RegisterParcel />
-  </div>
+        <RegisterParcel />
+      </div>
     </main>
   );
 }
