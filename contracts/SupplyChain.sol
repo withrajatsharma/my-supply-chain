@@ -127,7 +127,7 @@ contract SupplyChain {
         return nextParcelId;
     }
 
-    function getCode(uint256 parcelId) public view returns (uint256) {
-        return parcels[parcelId].code;
+    function getCode() public view returns (uint256) {
+        return parcels[nextParcelId-1].code;
     }
 }
