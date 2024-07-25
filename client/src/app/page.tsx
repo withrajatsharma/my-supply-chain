@@ -30,6 +30,18 @@ export default function Home() {
     getCount();
   }, []);
 
+  const getParcelHistory = async () =>{
+
+    // @ts-ignore
+    const accounts = await web3.eth.getAccounts();
+   const address = await supplyChain.methods.getParcelHistory(
+    0
+    ).send({ from: accounts[0] });
+
+    console.log(address);
+
+  }
+
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between p-24">
       <div>
@@ -38,6 +50,11 @@ export default function Home() {
         </h1>
 
         <RegisterParcel parcelCount />
+
+
+        <div onClick={getParcelHistory}>
+          get parcel history
+        </div>
 
 
       </div>

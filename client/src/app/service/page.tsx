@@ -8,20 +8,20 @@ import supplyChain from "../../../services/supplyChain";
 
 const page = () => {
 
+
+
     const handletransferParcel = async() => {
         try {
-            // @ts-ignore
-            const accounts = await web3.eth.getAccounts(); 
-            const currentOwner = accounts[0];  // Use the correct account if needed
-    
-            // Call the getParcelDetails function
-            const response = await supplyChain.methods.transferParcel(
-                5,
-                1,
-                9
-            ).send({ from: currentOwner });
             
-            console.log('response:', response);
+        
+            // @ts-ignore
+            const accounts = await web3.eth.getAccounts();
+            await supplyChain.methods.transferParcel(
+                0,
+                1
+            ).send({ from: accounts[0] });
+            
+            // console.log('response:', response);
         } catch (error) {
             console.error('Error fetching parcel details:', error);
         }

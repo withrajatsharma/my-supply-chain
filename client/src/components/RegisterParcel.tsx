@@ -94,13 +94,13 @@ const RegisterParcel = ({parcelCount}) => {
     // push('/buyer');
   };
 
-  const getCode=async()=>{
+  // const getCode=async()=>{
     
-    const x = await supplyChain.methods.getCode().call();
-    console.log(x);
-    // setCode(x);
+  //   const x = await supplyChain.methods.getCode().call();
+  //   console.log(x);
+  //   // setCode(x);
 
-  }
+  // }
 
   return (
 
@@ -215,10 +215,10 @@ const RegisterParcel = ({parcelCount}) => {
 
     
 
-                <div
+                {/* <div
                 onClick={getCode}
                 >
-                  code : {code}</div>
+                  code : {code}</div> */}
 
 
     </div>

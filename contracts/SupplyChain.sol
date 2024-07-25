@@ -21,7 +21,7 @@ contract SupplyChain {
     uint256 public nextParcelId;
 
     event ParcelRegistered(uint256 parcelId, string name, address owner);
-    event CheckpointCompleted(uint256 parcelId, uint256 checkpoint, uint256 blockNumber, uint256 code);
+    event CheckpointCompleted(uint256 parcelId, uint256 checkpoint, uint256 blockNumber);
     event ParcelTransferred(uint256 parcelId, address from, address to, uint256 checkpoint);
     event ParcelLost(uint256 parcelId);
 
@@ -54,13 +54,13 @@ contract SupplyChain {
 
     function transferParcel(
         uint256 parcelId,
-        uint256 checkpoint,
-        uint256 code
+        uint256 checkpoint
+        // uint256 code
     ) public {
         Parcel storage parcel = parcels[parcelId];
         require(!parcel.isLost, "Cannot transfer a lost parcel");
         require(checkpoint > 0 && checkpoint <= parcel.checkpointCount, "Invalid checkpoint");
-        require(parcel.code == code, "Invalid code");
+        // require(parcel.code == code, "Invalid code");
 
         // Update checkpoint
         parcel.checkpoints[checkpoint] = true;
@@ -68,7 +68,7 @@ contract SupplyChain {
         parcel.currentOwner = msg.sender;
 
         // Emit checkpoint completion event with block number and code
-        emit CheckpointCompleted(parcelId, checkpoint, block.number, code);
+        emit CheckpointCompleted(parcelId, checkpoint, block.number);
         emit ParcelTransferred(parcelId, msg.sender, msg.sender, checkpoint);
     }
 
