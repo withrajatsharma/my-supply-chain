@@ -1,0 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const { registerParcel, transferParcel, reportParcelLost, verifyCheckpoint,getParcelCount, getParcelHistory, getParcelDetails, getNextLocation } = require('./controllers.js');
+
+router.post('/register', registerParcel);
+router.post('/transfer', transferParcel);
+router.post('/lost', reportParcelLost);
+router.get('/verify', verifyCheckpoint);
+router.get('/history', getParcelHistory);
+router.get('/details', getParcelDetails);
+router.get('/next-location', getNextLocation);
+router.get('/get-count', getParcelCount);
+
+module.exports = router;
+
