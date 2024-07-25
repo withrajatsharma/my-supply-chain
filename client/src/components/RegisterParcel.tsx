@@ -23,11 +23,13 @@ import {
 import web3 from "../../services/web3";
 import supplyChain from "../../services/supplyChain"
 
-
-const RegisterParcel = () => {
+// @ts-ignore
+const RegisterParcel = ({parcelCount}) => {
 
 
   const {push}  = useRouter();
+ 
+  const [code, setCode] = useState(0);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -67,27 +69,44 @@ const RegisterParcel = () => {
       locations
     ).send({ from: accounts[0] });
 
+
+    // const x = await supplyChain.methods.getCode().call();
+
+    // setCode(x);
+
     
 
-    const data = {
-      name,
-      description,
-      location,
-      service,
-      numCheckpoints,
-      locations,
-    };
-    try {
-      const response = await registerParcel(data);
-      console.log("Parcel registered:", response);
-    } catch (error) {
-      console.error("Error registering parcel:", error);
-    }
+    // const data = {
+    //   name,
+    //   description,
+    //   location,
+    //   service,
+    //   numCheckpoints,
+    //   locations,
+    // };
+    // try {
+    //   const response = await registerParcel(data);
+    //   console.log("Parcel registered:", response);
+    // } catch (error) {
+    //   console.error("Error registering parcel:", error);
+    // }
 
-    push('/buyer');
+    // push('/buyer');
   };
 
+  const getCode=async()=>{
+    
+    const x = await supplyChain.methods.getCode().call();
+    console.log(x);
+    // setCode(x);
+
+  }
+
   return (
+
+    <div>
+
+   
    
     <Card className="  w-[50vw] flex justify-center items-center ">
       <form >
@@ -194,9 +213,15 @@ const RegisterParcel = () => {
       </form>
     </Card>
 
-    // <div className="bg-red-400 text-3xl">
-      
-    // </div>
+    
+
+                <div
+                onClick={getCode}
+                >
+                  code : {code}</div>
+
+
+    </div>
 
 
   );

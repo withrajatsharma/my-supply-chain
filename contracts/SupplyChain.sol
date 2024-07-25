@@ -123,7 +123,7 @@ contract SupplyChain {
         return parcel.allLocations[checkpoint];
     }
 
-    function getParcelCount() public view returns (uint256) {
+    function getParcelCount() public view returns (uint256 ) {
         return nextParcelId;
     }
 

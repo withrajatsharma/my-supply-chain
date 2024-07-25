@@ -3,7 +3,9 @@ import Image from "next/image";
 import RegisterParcel from "../components/RegisterParcel";
 import { useEffect, useState } from "react";
 import supplyChain from "../../services/supplyChain";
-import { getParcelCount } from "../api/index";
+import { getParcelCount, getParcelDetails } from "../api/index";
+// @ts-ignore
+import web3 from "../../services/web3";
 
 export default function Home() {
   const [parcelCount, setParcelCount] = useState(0);
@@ -19,8 +21,9 @@ export default function Home() {
 
      const count =  await supplyChain.methods.getParcelCount().call();
 
-    await setParcelCount(count);
+      const no = parseInt(count.toString());
 
+      setParcelCount(no);
 
     };
 
@@ -34,7 +37,9 @@ export default function Home() {
           Total Parcels: {parcelCount}{" "}
         </h1>
 
-        <RegisterParcel />
+        <RegisterParcel parcelCount />
+
+
       </div>
     </main>
   );
