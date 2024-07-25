@@ -24,9 +24,6 @@ contract SupplyChain {
     event ParcelTransferred(uint256 parcelId, address from, address to, uint256 checkpoint);
     event ParcelLost(uint256 parcelId);
 
-    function getRandomNumber() private view returns (uint) {
-        return uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao)));
-    }
     function registerParcel(
         string memory name,
         string memory description,
