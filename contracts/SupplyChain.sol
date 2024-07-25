@@ -35,7 +35,6 @@ contract SupplyChain {
         require(locations.length == numCheckpoints, "Locations length must match number of checkpoints");
 
         Parcel storage newParcel = parcels[nextParcelId];
-        newParcel.id = getRandomNumber();
         newParcel.name = name;
         newParcel.description = description;
 
