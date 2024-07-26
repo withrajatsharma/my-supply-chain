@@ -1,63 +1,25 @@
-"use client";
-import Image from "next/image";
-import RegisterParcel from "../components/RegisterParcel";
-import { useEffect, useState } from "react";
-import supplyChain from "../../services/supplyChain";
-import { getParcelCount, getParcelDetails } from "../api/index";
-// @ts-ignore
-import web3 from "../../services/web3";
+'use client';
 
-export default function Home() {
-  const [parcelCount, setParcelCount] = useState(0);
+import { Button } from '@/components/ui/button'
+import React from 'react'
+import { useRouter } from 'next/navigation'
 
-  useEffect(() => {
-    const getCount = async () => {
-      // try {
-      //   const response = await getParcelCount();
-      //   setParcelCount(response.count);
-      // } catch (error) {
-      //   console.error("Error while getting parcel count:", error);
-      // }
+const page = () => {
 
-     const count =  await supplyChain.methods.getParcelCount().call();
-
-      const no = parseInt(count.toString());
-
-      setParcelCount(no);
-
-    };
-
-    getCount();
-  }, []);
-
-  const getParcelHistory = async () =>{
-
-    // @ts-ignore
-    const accounts = await web3.eth.getAccounts();
-   const address = await supplyChain.methods.getParcelHistory(
-    0
-    ).send({ from: accounts[0] });
-
-    console.log(address);
-
-  }
+  const {push} = useRouter();
 
   return (
-    <main className="flex min-h-screen  flex-col items-center justify-between p-24">
-      <div>
-        <h1 className="text-xl font-bold mb-10">
-          Total Parcels: {parcelCount}{" "}
-        </h1>
+    <div className=' flex justify-center gap-5   pt-20 w-full h-screen'>
 
-        <RegisterParcel parcelCount />
+      <Button 
+        onClick={()=>{push('/signup')}}
+      variant={'secondary'} className='bg-slate-200 hover:bg-slate-100' >Sign Up</Button>
+      <Button
+        onClick={()=>{push('/login')}}
+      >Login</Button>
 
-
-        <div onClick={getParcelHistory}>
-          get parcel history
-        </div>
-
-
-      </div>
-    </main>
-  );
+    </div>
+  )
 }
+
+export default page

@@ -4,11 +4,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const Web3 = require('web3');
 const SupplyChain = require('../build/contracts/SupplyChain.json');
+const cookieParser = require("cookie-parser")
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+app.use(cookieParser());
+// app.use(express.urlencoded({extended:true}))
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
@@ -20,8 +24,15 @@ mongoose.connect(process.env.MONGO_URI)
 // const contract = new web3.eth.Contract(SupplyChain.abi, contractAddress);
 
 app.use(express.json());
-app.use(cors());
-
+app.use(
+    cors(
+        {
+        origin: "http://localhost:3001",
+        method: ["GET", "POST", "DELETE", "PUT"],
+        credentials: true,
+      }
+    )
+);
 
 // Routes
 app.use('/api/parcels', require('./routes'));
