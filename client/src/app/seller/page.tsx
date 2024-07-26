@@ -23,33 +23,36 @@ export default function Home() {
 
     };
     const user = async()=>{
-        try {
-          const response = await axiosInstance.get("/api/parcels/get-user",{
-              withCredentials:true,
-              headers:{
-                  "Content-Type":"application/json",
-              },
-          })
-    
-          if(response.data.success){
-              if(response.data.user.role=="buyer"){
-                  push("/buyer")
-              }
-              if(response.data.user.role=="seller"){
-                  push("/seller")
-              }
-              if(response.data.user.role=="delivery"){
-                  push("/service")
-              }
-          }
-        
-     } catch (error) {
-       console.log(error);
-     }
+      try {
+        const response = await axiosInstance.get("/api/parcels/get-user",{
+            withCredentials:true,
+            headers:{
+                "Content-Type":"application/json",
+            },
+        })
   
-      }
-  
-      user();
+        if(response.data.success){
+            if(response.data.user.role=="buyer"){
+                push("/buyer")
+            }
+            if(response.data.user.role=="seller"){
+                push("/seller")
+            }
+            if(response.data.user.role=="delivery"){
+                push("/service")
+            }
+        }
+        else{
+          push("/")
+        }
+      
+   } catch (error) {
+     console.log(error);
+   }
+
+    }
+
+    user();
 
     getCount();
   }, []);

@@ -31,6 +31,9 @@ const buyer = () => {
                 push("/service")
             }
         }
+        else{
+          push("/")
+        }
       
    } catch (error) {
      console.log(error);

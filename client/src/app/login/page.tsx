@@ -18,7 +18,8 @@ const Login = () => {
 
 //   @ts-ignore
   const handleLogin = async (e) => {
-    e.preventDefault();
+
+      e.preventDefault();
     const response = await axiosInstance.post("/api/parcels/login",{
         email:email,
         password:password
@@ -29,7 +30,6 @@ const Login = () => {
         },
     })
 
-    console.log(response.data);
     if(response.data.success){
         if(response.data.user.role=="buyer"){
             push("/buyer")
@@ -75,7 +75,7 @@ const Login = () => {
 
             {/* {error && <p className=" text-red-500 text-xs pb-1">{error}</p>} */}
 
-            <Button type="submit" className="mt-8 w-full">
+            <Button onClick={handleLogin} className="mt-8 w-full">
               Login
             </Button>
             <p className="text-sm text-center mt-4">
