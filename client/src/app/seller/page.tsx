@@ -8,8 +8,13 @@ import supplyChain from "../../../services/supplyChain";
 import web3 from "../../../services/web3";
 import { useRouter } from "next/navigation";
 import axiosInstance from "@/axiosInstance";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function Home() {
+
+  const [parcelId , setParcelId] = useState("");
+  const [parcel,setParcel] = useState({});
 
     const {push} = useRouter();
 
@@ -69,6 +74,20 @@ export default function Home() {
 
   }
 
+  // @ts-ignore
+  const checkParcelStatus = async (e) =>{
+      e.preventDefault();
+
+// @ts-ignore
+const accounts = await web3.eth.getAccounts();
+      const details = await supplyChain.methods.getParcelDetails(
+        parcelId
+      ).call({from: accounts[0]});
+
+      // console.log(details.chekcpointcount);
+
+  }
+
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between p-24">
       <div>
@@ -78,11 +97,26 @@ export default function Home() {
 
         <RegisterParcel parcelCount />
 
+        <div className="flex gap-2 mt-10 items-center justify-center">
 
-        {/* <div onClick={getParcelHistory}>
-          get parcel history
-        </div> */}
+        <Input
+        className=" border-zinc-300"
+          placeholder="enter parcel id"
+          value={parcelId}
+          onChange={(e)=>setParcelId(e.target.value)}
+        >
+        </Input>
 
+        {/* <Button onClick={checkParcelStatus} >
+            check parcel status
+        </Button> */}
+
+
+        </div>
+
+        <div>
+            <p>name: {}</p>
+        </div>
 
       </div>
     </main>
