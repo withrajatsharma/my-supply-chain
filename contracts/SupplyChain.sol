@@ -13,8 +13,8 @@ contract SupplyChain {
         bool isLost;
         uint256 checkpointCount;
         string[] allLocations;
-        mapping(uint256 => bool) checkpoints; // Checkpoint completion status
         uint code;
+        uint256 latestCheckpoint; // Added latestCheckpoint property
     }
 
     mapping(uint256 => Parcel) public parcels;
@@ -47,6 +47,7 @@ contract SupplyChain {
         newParcel.checkpointCount = numCheckpoints;
         newParcel.allLocations = locations;
         newParcel.code = uint(keccak256(abi.encodePacked(block.timestamp, block.prevrandao, msg.sender))) % 10000; // Generates a random number between 0 and 9999
+        newParcel.latestCheckpoint = 0; // Initialize latestCheckpoint
 
         emit ParcelRegistered(nextParcelId, name, msg.sender);
         nextParcelId++;
@@ -63,7 +64,7 @@ contract SupplyChain {
         // require(parcel.code == code, "Invalid code");
 
         // Update checkpoint
-        parcel.checkpoints[checkpoint] = true;
+        parcel.latestCheckpoint = checkpoint; // Update latestCheckpoint
         parcel.trackingHistory.push(msg.sender);
         parcel.currentOwner = msg.sender;
 
@@ -79,14 +80,6 @@ contract SupplyChain {
         parcel.isLost = true;
 
         emit ParcelLost(parcelId);
-    }
-
-    function verifyCheckpoint(uint256 parcelId, uint256 checkpoint, uint256 id) public view returns (bool) {
-        Parcel storage parcel = parcels[parcelId];
-        require(checkpoint <= parcel.checkpointCount, "Invalid checkpoint");
-
-        // Check if the checkpoint is completed and id matches
-        return parcel.checkpoints[checkpoint] && parcel.id == id;
     }
 
     function getParcelHistory(uint256 parcelId) public view returns (address[] memory) {
@@ -116,18 +109,18 @@ contract SupplyChain {
         );
     }
 
-    function getNextLocation(uint256 parcelId, uint256 checkpoint) public view returns (string memory) {
+    function getNextLocation(uint256 parcelId) public view returns (string memory) {
         Parcel storage parcel = parcels[parcelId];
-        require(checkpoint < parcel.checkpointCount, "Invalid checkpoint");
-
-        return parcel.allLocations[checkpoint];
+        uint256 nextCheckpoint = parcel.latestCheckpoint + 1;
+        require(nextCheckpoint < parcel.checkpointCount, "Invalid checkpoint");
+        return parcel.allLocations[nextCheckpoint];
     }
 
-    function getParcelCount() public view returns (uint256 ) {
+    function getParcelCount() public view returns (uint256) {
         return nextParcelId;
     }
 
     function getCode() public view returns (uint256) {
-        return parcels[nextParcelId-1].code;
+        return parcels[nextParcelId - 1].code;
     }
 }
