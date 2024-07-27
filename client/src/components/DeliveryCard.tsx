@@ -23,11 +23,14 @@ import {
     DialogTrigger,
   } from "@/components/ui/dialog"
 import { Input } from './ui/input';
+import { useRouter } from 'next/navigation';
+import Router from 'next/router';
   
 
 // @ts-ignore
 const DeliveryCard = ({index}) => {
 
+  const router = useRouter();
 
     const [parcel,setParcel] = useState({
         name:"",
@@ -89,8 +92,8 @@ checkParcelStatus();
     
               ).send({ from: accounts[0] });
     
-
-    }
+              window.location.reload();
+                }
 
     const parcelLost = async () =>{
 
@@ -108,7 +111,7 @@ index
   return (
     <Card className='w-[30%] border-black'>
     <CardHeader>
-      <CardTitle className='flex items-center justify-between'><p>{parcel.name}</p>{parcel.isLost||<span
+      <CardTitle className='flex items-center justify-between'><p>{parcel.name}</p>{(parcel.latestCheckpoint)+1 === (parcel.checkPoints)?"":parcel.isLost||<span
         onClick={parcelLost}
       className='text-sm text-red-500 cursor-pointer'>mark parcel for lost</span>}</CardTitle>
       <CardDescription>{parcel.description}</CardDescription>

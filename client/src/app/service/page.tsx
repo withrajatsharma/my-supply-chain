@@ -65,32 +65,11 @@ const page = () => {
 
 
   return (
-//     <div className='flex p-20  gap-10'>
-
-//   <Input
-//         className=" border-zinc-300 w-[30%]"
-//           placeholder="enter parcel id"
-//           value={parcelId}
-//           onChange={(e)=>setParcelId(e.target.value)}
-//         >
-//         </Input>
-
-// {
-//   detail?<Button >
-//   no more check points
-// </Button>: <Button  >
-//             transfer parcel
-//         </Button>
-// }
-       
-//         {/* <Button onClick={handletransferParcel} >
-//             next check point
-//         </Button> */}
-
-//         <DrawerBoxService parcelId={parcelId} />
-//     </div>
+<div>
+    <p className=' font-bold text-4xl pt-5  mx-auto flex justify-center'>DELIVERY PORTAL</p>
 
 <div className='flex flex-wrap gap-10 p-14 '>
+
 
 
 {
@@ -100,6 +79,7 @@ const page = () => {
 
 }
       
+      </div>
       </div>
 
     

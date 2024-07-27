@@ -70,7 +70,7 @@ export default function Home() {
 
     }
 
-    user();
+    // user();
 
     getCount();
   }, []);
@@ -115,7 +115,11 @@ export default function Home() {
   
 
   return (
+    <div>
+    <p className=' font-bold text-4xl pt-5  mx-auto flex justify-center'>SELLER'S DASHBOARD</p>
+
     <main className="flex min-h-screen  flex-col items-center justify-between p-24">
+
       <div>
         <h1 className="text-xl font-bold mb-10">
           Total Parcels: {parcelCount}{" "}
@@ -141,5 +145,6 @@ export default function Home() {
 
       </div>
     </main>
+    </div>
   );
 }

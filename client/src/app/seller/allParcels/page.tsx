@@ -38,7 +38,12 @@ const allParcels = () => {
 
 
   return (
+    <div>
+      <p className=' font-bold text-4xl pt-5  mx-auto flex justify-center'>SELLER'S DASHBOARD</p>
+    
     <div >
+
+
 
         <Button onClick={()=>{
             push("/seller");
@@ -58,6 +63,7 @@ const allParcels = () => {
       
     
     
+        </div>
         </div>
   )
 }

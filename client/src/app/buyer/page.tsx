@@ -59,7 +59,7 @@ const buyer = () => {
 
     }
 
-    user();
+    // user();
 
  
 
@@ -72,6 +72,10 @@ const buyer = () => {
 
 
   return (
+
+    <div>
+    <p className=' font-bold text-4xl pt-5  mx-auto flex justify-center'>BUYER'S DASHBOARD</p>
+    
     <div className='flex flex-wrap gap-10 p-14 '>
 
 
@@ -85,6 +89,7 @@ const buyer = () => {
   
 
 
+    </div>
     </div>
   )
 }
