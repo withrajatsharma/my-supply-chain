@@ -10,15 +10,26 @@ import { useRouter } from "next/navigation";
 import axiosInstance from "@/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import DrawerBox from "@/components/DrawerBox"
 
 export default function Home() {
 
-  const [parcelId , setParcelId] = useState("");
-  const [parcel,setParcel] = useState({});
+  
 
     const {push} = useRouter();
 
   const [parcelCount, setParcelCount] = useState(0);
+  const [parcelId , setParcelId] = useState("");
+
+  const [parcel,setParcel] = useState({
+    name:"",
+    description:"",
+    location:"",
+    service:"",
+    checkPoints :0,
+    allLocations : [""],
+  });
+
 
   useEffect(() => {
     const getCount = async () => {
@@ -62,31 +73,42 @@ export default function Home() {
     getCount();
   }, []);
 
-  const getParcelHistory = async () =>{
+  // const getParcelHistory = async () =>{
 
+  //   // @ts-ignore
+  //   const accounts = await web3.eth.getAccounts();
+  //  const address = await supplyChain.methods.getParcelHistory(
+  //   0
+  //   ).send({ from: accounts[0] });
+
+  //   console.log(address);
+
+  // }
+
+      // @ts-ignore
+      const checkParcelStatus = async (e) =>{
+        // e.preventDefault();
+    
     // @ts-ignore
     const accounts = await web3.eth.getAccounts();
-   const address = await supplyChain.methods.getParcelHistory(
-    0
-    ).send({ from: accounts[0] });
-
-    console.log(address);
-
-  }
-
-  // @ts-ignore
-  const checkParcelStatus = async (e) =>{
-      e.preventDefault();
-
-// @ts-ignore
-const accounts = await web3.eth.getAccounts();
-      const details = await supplyChain.methods.getParcelDetails(
-        parcelId
-      ).call({from: accounts[0]});
-
-      // console.log(details.chekcpointcount);
-
-  }
+        const details = await supplyChain.methods.getParcelDetails(
+          parcelId
+        ).call({from: accounts[0]});
+    
+        // console.log(details);
+        setParcel({
+            name:details.name,
+            description:details.description,
+            location:details.location,
+            service:details.service,
+            checkPoints :  parseInt(details.checkpointCount.toString()),
+            allLocations :details.allLocations ,
+        })
+    
+    }
+    
+ 
+  
 
   return (
     <main className="flex min-h-screen  flex-col items-center justify-between p-24">
@@ -111,12 +133,14 @@ const accounts = await web3.eth.getAccounts();
             check parcel status
         </Button> */}
 
+        <DrawerBox parcel={parcel} checkParcelStatus={checkParcelStatus} />
+
 
         </div>
 
-        <div>
-            <p>name: {}</p>
-        </div>
+        {/* <div >
+            
+        </div> */}
 
       </div>
     </main>

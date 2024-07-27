@@ -103,7 +103,7 @@ contract SupplyChain {
             parcel.name,
             parcel.description,
             parcel.location,
-            parcel.service,
+            parcel.service, 
             parcel.checkpointCount,
             parcel.allLocations
         );
