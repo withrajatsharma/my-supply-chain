@@ -10,14 +10,49 @@ import {
     DrawerTitle,
     DrawerTrigger,
   } from "@/components/ui/drawer"
-import { Button } from './ui/button'
-import supplyChain from "../../services/supplyChain"
+import { Button } from './ui/button.js'
+import supplyChain from "../../services/supplyChain.js"
 // @ts-ignore
 import web3 from "../../services/web3.js"
   
 
 // @ts-ignore
-const drawer = ({parcel,checkParcelStatus}) => {
+const drawer = ({parcelId}) => {
+
+
+  const [parcel,setParcel] = useState({
+    name:"",
+    description:"",
+    location:"",
+    service:"",
+    checkPoints :0,
+    allLocations : [""],
+    latestCheckpoint:0
+  });
+
+  
+      // @ts-ignore
+    const checkParcelStatus = async (e) =>{
+        // e.preventDefault();
+    
+    // @ts-ignore
+    const accounts = await web3.eth.getAccounts();
+        const details = await supplyChain.methods.getParcelDetails(
+          parcelId
+        ).call({from: accounts[0]});
+    
+        // console.log(parseInt(details.latestCheckpoint));
+        setParcel({
+            name:details.name,
+            description:details.description,
+            location:details.location,
+            service:details.service,
+            checkPoints :  parseInt(details.checkpointCount.toString()),
+            allLocations :details.allLocations ,
+            latestCheckpoint:parseInt(details.latestCheckpoint)
+        })
+    
+    }
 
  
 
@@ -28,7 +63,7 @@ const drawer = ({parcel,checkParcelStatus}) => {
      
   <DrawerTrigger
     onClick={checkParcelStatus}
-  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >check parcel status </DrawerTrigger>
+  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >next check point </DrawerTrigger>
        
   <DrawerContent className='px-8 py-5 pb-10'>
     <DrawerHeader>
@@ -49,9 +84,11 @@ const drawer = ({parcel,checkParcelStatus}) => {
     {/* @ts-ignore */}
         {parcel?.allLocations?.map((loc,idx)=>( parseInt(parcel?.latestCheckpoint)===idx?(<div className='border-4 border-red-500 p-1 rounded-lg border-dotted w-[50%] '><div className='flex justify-center items-center rounded-lg h-12 bg-zinc-900  text-white  text-base'>
             {loc}
-        </div></div>):(parseInt(parcel?.latestCheckpoint)>idx?<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-300 text-slate-600 text-base'>
+            {/* @ts-ignore */}
+        </div></div>):(parseInt(parcel.latestCheckpoint)>idx?<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-300 text-slate-600 text-base'>
             {loc}
-        </div>:(<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-900 text-white text-base'>
+            {/* @ts-ignore */}
+        </div>:(parseInt(parcel.latestCheckpoint)+1===idx&&<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-900 text-white text-base'>
             {loc}
         </div>))))}
 

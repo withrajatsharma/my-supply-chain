@@ -28,6 +28,7 @@ export default function Home() {
     service:"",
     checkPoints :0,
     allLocations : [""],
+    latestCheckpoint:0
   });
 
 
@@ -95,7 +96,7 @@ export default function Home() {
           parcelId
         ).call({from: accounts[0]});
     
-        console.log(parseInt(details.latestCheckpoint));
+        // console.log(parseInt(details.latestCheckpoint));
         setParcel({
             name:details.name,
             description:details.description,
@@ -103,6 +104,7 @@ export default function Home() {
             service:details.service,
             checkPoints :  parseInt(details.checkpointCount.toString()),
             allLocations :details.allLocations ,
+            latestCheckpoint:parseInt(details.latestCheckpoint)
         })
     
     }
