@@ -72,7 +72,7 @@ const buyer = () => {
 
 
   return (
-    <div className='flex flex-wrap gap-20 p-14 '>
+    <div className='flex flex-wrap gap-10 p-14 '>
 
 
 {

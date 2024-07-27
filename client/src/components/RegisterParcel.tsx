@@ -101,7 +101,7 @@ const RegisterParcel = ({parcelCount}) => {
     //   console.error("Error registering parcel:", error);
     // }
 
-    // push('/buyer');
+    push('/seller/allParcels');
   };
 
   // const getCode=async()=>{

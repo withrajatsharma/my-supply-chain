@@ -125,20 +125,13 @@ export default function Home() {
 
         <div className="flex gap-2 mt-10 items-center justify-center">
 
-        <Input
-        className=" border-zinc-300"
-          placeholder="enter parcel id"
-          value={parcelId}
-          onChange={(e)=>setParcelId(e.target.value)}
-        >
-        </Input>
 
-        {/* <Button onClick={checkParcelStatus} >
-            check parcel status
-        </Button> */}
+        <Button onClick={()=>{ push("/seller/allParcels")}} >
+            your parcles
+        </Button>
 
-        <DrawerBox parcel={parcel} checkParcelStatus={checkParcelStatus} buttonText={"check parcel status"} />
 
+      
 
         </div>
 

@@ -17,42 +17,42 @@ import web3 from "../../services/web3.js"
   
 
 // @ts-ignore
-const drawer = ({parcelId}) => {
+const drawer = ({parcel,checkParcelStatus}) => {
 
 
-  const [parcel,setParcel] = useState({
-    name:"",
-    description:"",
-    location:"",
-    service:"",
-    checkPoints :0,
-    allLocations : [""],
-    latestCheckpoint:0
-  });
+  // const [parcel,setParcel] = useState({
+  //   name:"",
+  //   description:"",
+  //   location:"",
+  //   service:"",
+  //   checkPoints :0,
+  //   allLocations : [""],
+  //   latestCheckpoint:0
+  // });
 
   
       // @ts-ignore
-    const checkParcelStatus = async (e) =>{
-        // e.preventDefault();
+    // const checkParcelStatus = async (e) =>{
+    //     // e.preventDefault();
     
-    // @ts-ignore
-    const accounts = await web3.eth.getAccounts();
-        const details = await supplyChain.methods.getParcelDetails(
-          parcelId
-        ).call({from: accounts[0]});
+    // // @ts-ignore
+    // const accounts = await web3.eth.getAccounts();
+    //     const details = await supplyChain.methods.getParcelDetails(
+    //       parcelId
+    //     ).call({from: accounts[0]});
     
-        // console.log(parseInt(details.latestCheckpoint));
-        setParcel({
-            name:details.name,
-            description:details.description,
-            location:details.location,
-            service:details.service,
-            checkPoints :  parseInt(details.checkpointCount.toString()),
-            allLocations :details.allLocations ,
-            latestCheckpoint:parseInt(details.latestCheckpoint)
-        })
+    //     // console.log(parseInt(details.latestCheckpoint));
+    //     setParcel({
+    //         name:details.name,
+    //         description:details.description,
+    //         location:details.location,
+    //         service:details.service,
+    //         checkPoints :  parseInt(details.checkpointCount.toString()),
+    //         allLocations :details.allLocations ,
+    //         latestCheckpoint:parseInt(details.latestCheckpoint)
+    //     })
     
-    }
+    // }
 
  
 
@@ -63,7 +63,7 @@ const drawer = ({parcelId}) => {
      
   <DrawerTrigger
     onClick={checkParcelStatus}
-  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >next check point </DrawerTrigger>
+  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >check next point </DrawerTrigger>
        
   <DrawerContent className='px-8 py-5 pb-10'>
     <DrawerHeader>
