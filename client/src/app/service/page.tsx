@@ -13,6 +13,8 @@ const page = () => {
 
 
     const [parcelId , setParcelId] = useState("");
+    const [detail,setDetail] = useState(false);
+    
 
     const handletransferParcel = async() => {
         try {
@@ -23,14 +25,24 @@ const page = () => {
       parcelId
     ).call({from: accounts[0]});
 
-        
-            // @ts-ignore
+   
+
+    
+   
+if(!(parseInt(details.latestCheckpoint)+1 === parseInt(details.checkpointCount))){
+// @ts-ignore
             // const accounts = await web3.eth.getAccounts();
             await supplyChain.methods.transferParcel(
-                parcelId,
-                parseInt(details.latestCheckpoint)+1
+              parcelId,
+              parseInt(details.latestCheckpoint)+1
 
-            ).send({ from: accounts[0] });
+          ).send({ from: accounts[0] });
+}else{
+  setDetail(true);
+}
+
+
+            
             
             // console.log('response:', response);
         } catch (error) {
@@ -53,9 +65,14 @@ const page = () => {
         >
         </Input>
 
-        <Button onClick={handletransferParcel} >
+{
+  detail?<Button >
+  no more check points
+</Button>: <Button onClick={handletransferParcel} >
             transfer parcel
         </Button>
+}
+       
         {/* <Button onClick={handletransferParcel} >
             next check point
         </Button> */}

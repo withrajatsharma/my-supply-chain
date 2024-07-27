@@ -17,7 +17,7 @@ import web3 from "../../services/web3.js"
   
 
 // @ts-ignore
-const drawer = ({parcel,checkParcelStatus}) => {
+const drawer = ({parcel,checkParcelStatus,buttonText}) => {
 
  
 
@@ -28,7 +28,7 @@ const drawer = ({parcel,checkParcelStatus}) => {
      
   <DrawerTrigger
     onClick={checkParcelStatus}
-  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >check parcel status </DrawerTrigger>
+  className=' whitespace-nowrap px-4 hover:bg-zinc-800 py-2  bg-black rounded-lg text-white' >{buttonText} </DrawerTrigger>
        
   <DrawerContent className='px-8 py-5 pb-10'>
     <DrawerHeader>
@@ -40,6 +40,9 @@ const drawer = ({parcel,checkParcelStatus}) => {
             <p>LOCATION : {parcel.location}</p>
             <p>SERVICE : {parcel.service}</p>
             <p>CHECK POINTS : {parcel.checkPoints}</p>
+              {
+                parcel.isLost&&<p className='text-red-500 font-bold'>Parcel marked for lost </p>
+              }
 
         </div>
 

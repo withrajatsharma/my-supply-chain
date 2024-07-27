@@ -94,7 +94,9 @@ contract SupplyChain {
         string memory location,
         string memory service,
         uint256 checkpointCount,
-        string[] memory allLocations
+        string[] memory allLocations,
+        bool isLost
+
 
     ) {
         Parcel storage parcel = parcels[parcelId];
@@ -108,7 +110,8 @@ contract SupplyChain {
             parcel.location,
             parcel.service, 
             parcel.checkpointCount,
-            parcel.allLocations
+            parcel.allLocations,
+            parcel.isLost
         );
     }
 

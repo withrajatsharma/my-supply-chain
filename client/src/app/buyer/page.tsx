@@ -1,15 +1,33 @@
 "use client"
 import axiosInstance from '@/axiosInstance'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import supplyChain from "../../../services/supplyChain"
+import web3 from "../../../services/web3"
+import React, { useEffect, useState } from 'react'
+import BuyerCard from '@/components/BuyerCard'
+
+
 
 const buyer = () => {
 
   const {push} = useRouter();
 
+  const [parcelCount, setParcelCount] = useState(0);
+
+
 
 
   useEffect(()=>{
+
+
+    const getCount = async () => {
+      const count =  await supplyChain.methods.getParcelCount().call();
+       const no = parseInt(count.toString());
+       setParcelCount(no);
+ 
+     };
+
+     getCount();
 
     const user = async()=>{
       try {
@@ -44,13 +62,30 @@ const buyer = () => {
     user();
 
  
+
   },[])
+
+
+  const components = Array.from({ length: parcelCount });
 
 
 
 
   return (
-    <div>buyer</div>
+    <div className='flex flex-wrap gap-20 p-14 '>
+
+
+{
+    
+    components.map((component,index) =><BuyerCard index={index} /> )
+
+}
+      
+   
+  
+
+
+    </div>
   )
 }
 

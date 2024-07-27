@@ -28,7 +28,8 @@ export default function Home() {
     service:"",
     checkPoints :0,
     allLocations : [""],
-    latestCheckpoint:0
+    latestCheckpoint:0,
+    isLost:false,
   });
 
 
@@ -104,7 +105,8 @@ export default function Home() {
             service:details.service,
             checkPoints :  parseInt(details.checkpointCount.toString()),
             allLocations :details.allLocations ,
-            latestCheckpoint:parseInt(details.latestCheckpoint)
+            latestCheckpoint:parseInt(details.latestCheckpoint),
+            isLost :details.isLost
         })
     
     }
@@ -135,7 +137,7 @@ export default function Home() {
             check parcel status
         </Button> */}
 
-        <DrawerBox parcel={parcel} checkParcelStatus={checkParcelStatus} />
+        <DrawerBox parcel={parcel} checkParcelStatus={checkParcelStatus} buttonText={"check parcel status"} />
 
 
         </div>
