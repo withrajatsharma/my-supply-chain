@@ -88,18 +88,21 @@ contract SupplyChain {
 
     function getParcelDetails(uint256 parcelId) public view returns (
         uint256 id,
+        uint256 latestCheckpoint,
         string memory name,
         string memory description,
         string memory location,
         string memory service,
         uint256 checkpointCount,
         string[] memory allLocations
+
     ) {
         Parcel storage parcel = parcels[parcelId];
         require(msg.sender == parcel.currentOwner, "Only the current owner can view the parcel details");
 
         return (
             parcel.id,
+            parcel.latestCheckpoint,
             parcel.name,
             parcel.description,
             parcel.location,

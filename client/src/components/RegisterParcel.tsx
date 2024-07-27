@@ -31,12 +31,20 @@ const RegisterParcel = ({parcelCount}) => {
  
   const [code, setCode] = useState(0);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [service, setService] = useState("");
-  const [numCheckpoints, setNumCheckpoints] = useState();
-  const [locations, setLocations] = useState([]);
+
+  // const [name, setName] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [location, setLocation] = useState("");
+  // const [service, setService] = useState("");
+  // const [numCheckpoints, setNumCheckpoints] = useState();
+  // const [locations, setLocations] = useState([]);
+
+  const [name, setName] = useState("phone");
+  const [description, setDescription] = useState("description  of the device");
+  const [location, setLocation] = useState("chandigarh");
+  const [service, setService] = useState("flipkart");
+  const [numCheckpoints, setNumCheckpoints] = useState(4);
+  const [locations, setLocations] = useState(["delhi","haryana","gurgaon","chandigarh"]);
 
   const [inputValue, setInputValue] = useState("");
 
@@ -48,6 +56,8 @@ const RegisterParcel = ({parcelCount}) => {
     }
   };
 
+
+  
   const addNewLocation = () => {
     if (inputValue.trim() !== "") {
       // @ts-ignore

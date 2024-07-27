@@ -47,9 +47,11 @@ const drawer = ({parcel,checkParcelStatus}) => {
     {/* <div className='w-1/2 flex  items-center'> */}
         <div className='w-1/2 flex flex-col gap-12 pl-10'>
     {/* @ts-ignore */}
-        {parcel.allLocations.map((loc,idx)=> <div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-900 text-white text-base'>
+        {parcel?.allLocations?.map((loc,idx)=>( parseInt(parcel?.latestCheckpoint)===idx?(<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-red-900 text-white text-base'>
             {loc}
-        </div>)}
+        </div>):(<div className='flex justify-center items-center rounded-lg w-[50%] h-12 bg-zinc-900 text-white text-base'>
+            {loc}
+        </div>)))}
 
            
             

@@ -95,7 +95,7 @@ export default function Home() {
           parcelId
         ).call({from: accounts[0]});
     
-        // console.log(details);
+        console.log(parseInt(details.latestCheckpoint));
         setParcel({
             name:details.name,
             description:details.description,
