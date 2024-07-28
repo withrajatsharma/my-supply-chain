@@ -30,7 +30,6 @@ const BuyerCard = ({index}) => {
       });
 
 
-
       
          // @ts-ignore
          const checkParcelStatus = async () =>{
